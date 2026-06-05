@@ -81,6 +81,34 @@ const userSchema = new mongoose.Schema({
             "active",
             "quota_exceeded",
             "invalid",
-        ]
+        ],
+        default: "active"
+    },
+    totalMessages: {
+        type: Number,
+        default: 0,
+    },
+    plan: {
+        type: String,
+        enum: ["free", "pro"],
+        default: "free"
+    },
+    requestLimit: {
+        type: Number,
+        default: 200
+    },
+    proExpiresAt: {
+        type: Date,
+        default: null
+    },
+
+    isSetupComplete: {
+        type: Boolean,
+        default: false
     }
+
 }, {timestamps:true})
+
+const User = mongoose.model("User", userSchema)
+
+export default User
