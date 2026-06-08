@@ -5,10 +5,11 @@ import authRouter from './Routes/auth.route.js';
 import cookieParser from 'cookie-parser';
 dotenv.config()
 import cors from 'cors'
+import userRouter from './Routes/user.route.js';
 
 const app = express();
 app.use(cors({
-origin: 'http://localhost:5173/',
+origin: 'http://localhost:5173',
 credentials: true
 }))
 
@@ -21,6 +22,7 @@ app.get('/', (req, res) => {
 })
 
 app.use("/api/auth", authRouter)
+app.use("/api/user", userRouter)
 const PORT = process.env.PORT
 
 app.listen(PORT, ()=>{
