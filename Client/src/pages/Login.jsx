@@ -5,8 +5,12 @@ import { FcGoogle } from "react-icons/fc";
 import logo from '../assets/ShifraAI_logo.svg'
 import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../utils/firebase';
+import axios from "axios"
+import { ServerUrl } from '../App';
+import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({setUser}) => {
+    const navigate = useNavigate()
     const FEATURES = [
       {
         icon: <HiOutlineMicrophone />,
@@ -44,7 +48,10 @@ const Login = () => {
     const handleLogin = async () => {
       try{
         const result = await signInWithPopup(auth, provider)
-        console.log(result)
+        const {displayName, email} = result.user
+        const res = await axios.post(ServerUrl + "/api/auth/google", {name:displayName, email}, {withCredentials:true})
+        setUser(res.data)
+        navigate("/")
       } catch (error) {
         console.log(error)
       }

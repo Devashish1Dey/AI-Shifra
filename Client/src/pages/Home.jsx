@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Home = () => {
+const Home = ({user}) => {
   return (
-    <div>
-      Home
+    <div className='text-4xl text-green-500'>
+      {user.name}
     </div>
   )
 }
